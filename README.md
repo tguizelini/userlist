@@ -1,10 +1,10 @@
 # UserList
 
-Adding/Listing users
+Android app with single Activity for adding/listing users.
 
 ## Architecture
 
-- MVI
+- MVI (for navite between fragments)
 - MVVM
 - Clean Architecture
 
