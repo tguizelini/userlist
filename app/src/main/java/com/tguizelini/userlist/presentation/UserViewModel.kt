@@ -4,9 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tguizelini.userlist.domain.model.User
 import com.tguizelini.userlist.domain.UserInteractor
+import com.tguizelini.userlist.presentation.main.ScreenState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 
 class UserViewModel constructor(
     private val interactor: UserInteractor
@@ -14,10 +16,12 @@ class UserViewModel constructor(
 
     private val disposable = CompositeDisposable()
 
+    val screenState = MutableLiveData<ScreenState>(ScreenState.List)
     val items = MutableLiveData<List<User>>()
-    val screenState = MutableLiveData<ScreenState>()
 
-    init { getData() }
+    init {
+        getData()
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -28,7 +32,7 @@ class UserViewModel constructor(
         screenState.value = value
     }
 
-    private fun getData() {
+    fun getData() {
         disposable.add(
             interactor.getUsers()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,8 +52,9 @@ class UserViewModel constructor(
 
         when(item.id) {
             null -> {
+                val newId = Random().nextInt(200)
                 current.addAll(items.value.orEmpty())
-                current.add(item.copy(id = Math.random().toInt()))
+                current.add(item.copy(id = newId))
             }
             else -> {
                 items.value?.forEach {
@@ -64,10 +69,12 @@ class UserViewModel constructor(
         }
 
         items.value = current
+        screenState.value = ScreenState.List
     }
 
     fun remove(id: Int) {
         items.value = items.value?.filter { it.id != id }.orEmpty()
+        screenState.value = ScreenState.List
     }
 
 }

@@ -2,4 +2,8 @@
     <string name="app_name">Users</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_hint_bio">Bio</string>
+    <string name="profile_hint_name">Name</string>
+    <string name="profile_btn_delete">Delete</string>
+    <string name="profile_btn_save">Save</string>
 </resources>

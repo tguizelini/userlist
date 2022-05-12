@@ -8,7 +8,13 @@ import retrofit2.Response
 class UserService constructor() {
     fun getFakeList() : Single<Response<List<User>>> {
         return Single.just(
-            Response.success(emptyList())
+            Response.success(listOf(
+                User(
+                    id = Math.random().toInt(),
+                    name = "Tiago Guizelini",
+                    bio = "Android Engineer"
+                )
+            ))
         )
     }
 }

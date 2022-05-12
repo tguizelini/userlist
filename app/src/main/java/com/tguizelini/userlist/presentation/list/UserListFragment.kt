@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tguizelini.userlist.R
 import com.tguizelini.userlist.databinding.FragmentUserListBinding
 import com.tguizelini.userlist.domain.model.User
+import com.tguizelini.userlist.presentation.main.ScreenState
 import com.tguizelini.userlist.presentation.UserViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -34,6 +33,7 @@ class UserListFragment : Fragment() {
 
         setup()
         bindObservables()
+        bindClickListeners()
 
         return binding.root
     }
@@ -61,8 +61,14 @@ class UserListFragment : Fragment() {
         })
     }
 
+    private fun bindClickListeners() {
+        binding.fabAdd.setOnClickListener {
+            vm.navigateTo(ScreenState.Form())
+        }
+    }
+
     private fun onItemClick(item: User) {
-        Toast.makeText(requireContext(), item.name, Toast.LENGTH_LONG).show()
+        vm.navigateTo(ScreenState.Form(item))
     }
 
     companion object {

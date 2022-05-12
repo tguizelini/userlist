@@ -1,4 +1,4 @@
-package com.tguizelini.userlist.presentation
+package com.tguizelini.userlist.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.tguizelini.userlist.R
 import com.tguizelini.userlist.databinding.ActivityMainBinding
+import com.tguizelini.userlist.presentation.UserViewModel
 import com.tguizelini.userlist.presentation.list.UserListFragment
 import com.tguizelini.userlist.presentation.profile.UserProfileFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,26 +23,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         bindObservables()
-        bindClickListeners()
     }
 
     private fun bindObservables() {
         vm.screenState.observe(this, Observer {
             when (it) {
-                ScreenState.Form -> replaceFragment(
-                    UserProfileFragment.newInstance()
+                is ScreenState.Form -> replaceFragment(
+                    UserProfileFragment.newInstance(it.user)
                 )
                 else -> replaceFragment(
                     UserListFragment.newInstance()
                 )
             }
         })
-    }
-
-    private fun bindClickListeners() {
-        binding.fab.setOnClickListener {
-            vm.navigateTo(ScreenState.Form)
-        }
     }
 
     override fun onBackPressed() {
