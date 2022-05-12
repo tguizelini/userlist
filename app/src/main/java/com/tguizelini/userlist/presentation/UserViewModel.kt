@@ -13,13 +13,19 @@ class UserViewModel constructor(
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()
+
     val items = MutableLiveData<List<User>>()
+    val screenState = MutableLiveData<ScreenState>()
 
     init { getData() }
 
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    fun navigateTo(value: ScreenState) {
+        screenState.value = value
     }
 
     private fun getData() {
