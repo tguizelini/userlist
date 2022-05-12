@@ -4,7 +4,7 @@ Android app with single Activity for adding/listing users.
 
 ## Architecture
 
-- MVI (for navite between fragments)
+- MVI (for navigate between fragments)
 - MVVM
 - Clean Architecture
 
