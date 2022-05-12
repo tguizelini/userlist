@@ -14,6 +14,7 @@ Adding/Listing users
 - RecyclerView
 - Retrofit (for mock Response)
 - Koin
+- Jetpack LiveData, Lifecycle, ViewModel and ViewBinding
 
 ## Missing
 
